@@ -12,7 +12,7 @@ namespace courseProject.Core.Models
 
         public string type { get; set; }
 
-        //public string status { get; set; } = "off";
+       
 
         public DateTime date { get; set; } 
         public TimeSpan startTime { get; set; }

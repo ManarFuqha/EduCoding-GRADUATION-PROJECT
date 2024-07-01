@@ -15,10 +15,7 @@ namespace courseProject.Emails
             // Now configure the JwtSettings class to be injected into the Dependency Injection container
             var emailSection = configuration.GetSection(nameof(EmailConfiguration));
             services.Configure<EmailConfiguration>(emailSection);
-
-            ////// Register emailConfig instance in the DI container
-            ////services.AddSingleton(emailConfig);
-
+           
             //// Add the email service to the DI container
             services.AddTransient<IEmailService, EmailService>();
 

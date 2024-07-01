@@ -14,5 +14,6 @@ namespace courseProject.Core.IGenericRepository
         public Task<IReadOnlyList<Feedback>> GetAllFeedbacksAsync();
         public Task<IReadOnlyList<Feedback>> GetFeedbacksByTypeAsync(string type, Guid? instructorId = null, Guid? courseId = null);
         public Task<Feedback> GetFeedbackByIdAsync(Guid id);
+     
     }
 }

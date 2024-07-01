@@ -36,9 +36,7 @@ namespace courseProject.Core.Models
         public Guid InstructorId { get; set; }
         [ForeignKey("User")]
         public Guid subAdminId { get; set; } 
-        //[ForeignKey("Request")]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        //public Guid requestId { get; set; }
+       
 
      
         public User instructor { get; set; }    
@@ -48,7 +46,7 @@ namespace courseProject.Core.Models
 
         public List<StudentCourse> studentCourses { get; set; }
 
-        //public Request Request { get; set; }
+        
         public List<Feedback> Feedbacks { get; set; }
 
     }

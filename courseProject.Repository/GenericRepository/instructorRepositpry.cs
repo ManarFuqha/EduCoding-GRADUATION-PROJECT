@@ -31,10 +31,7 @@ namespace courseProject.Repository.GenericRepository
 
             
 
-        //public async Task<Instructor> getInstructorByIdAsync(Guid id)
-        //{
-        //    return await dbContext.instructors.Include(x=>x.user).FirstOrDefaultAsync(x => x.InstructorId == id);
-        //}
+        
 
         public async Task<IReadOnlyList<Instructor_Working_Hours>> getAllInstructorsOfficeHoursAsync()
         {
@@ -76,10 +73,7 @@ namespace courseProject.Repository.GenericRepository
         {
            return  await dbContext.users.Where(x => x.role.ToLower() == "instructor").FirstOrDefaultAsync(x=>x.UserId==instructorId);
         }
-        //public async Task createInstructorAccountAsync(Instructor entity)
-        //{
-        //    await dbContext.Set<Instructor>().AddAsync(entity);
-        //}
+       
 
     }
 }

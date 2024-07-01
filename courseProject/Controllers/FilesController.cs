@@ -17,7 +17,7 @@ namespace courseProject.Controllers
         /// <param name="filename">The name of the file to download.</param>
         /// <returns>An IActionResult representing the file download response.</returns>
         [HttpGet("DownloadFile")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> DownloadFile(string filename)
         {
             // Combine the current directory path with the provided filename to get the full file path.

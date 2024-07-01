@@ -20,44 +20,31 @@ namespace courseProject.MappingProfile
 
 
 
-            //  CreateMap<SubAdmin, Instructor>().ReverseMap();
+          
             CreateMap<User, EmployeeDto>()
           .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.UserId))
           .ForMember(dest => dest.FName, opt => opt.MapFrom(src => src.userName))
           .ForMember(dest => dest.type, opt => opt.MapFrom(src => src.role));
 
-            //CreateMap<SubAdmin, EmployeeDto>()            
-            //    .ForMember(x => x.Id, o => o.MapFrom(y => y.SubAdminId))
-            //    .IncludeMembers(x => x.user);
-                
-
-            //CreateMap<Instructor, EmployeeDto>()               
-            //    .ForMember(x => x.Id, o => o.MapFrom(y => y.InstructorId))
-            //    .IncludeMembers(x => x.user);
+           
 
            
 
 
             CreateMap<EmployeeForCreate, User>()
                 .ForMember(x => x.userName, o => o.MapFrom(y => y.FName));
-         //   CreateMap<EmployeeDto, Instructor>();
+         
             CreateMap<EmployeeDto, User>();
-            //CreateMap<EmployeeForUpdateDTO, Instructor>()
-            //     .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-            //IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
-            //CreateMap<EmployeeForUpdateDTO, SubAdmin>()
-            //     .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-            //IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
+           
             CreateMap<EmployeeForUpdateDTO, User>()
                 .ForMember(x=>x.userName , o=>o.MapFrom(y => y.FName))
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
             IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
 
-            //CreateMap<updateEmployeeDTO, SubAdmin>()
-            //    .ForMember(x=>x.SubAdminId , o=>o.MapFrom(y=>y.Id));
+            
             CreateMap<EmployeeForCreate, User>()
                 .ForMember(x=>x.userName , o=>o.MapFrom(y=>y.FName));
-         //   CreateMap<EmployeeForCreate, Instructor>();
+         
 
 
 
@@ -67,12 +54,7 @@ namespace courseProject.MappingProfile
 
 
             CreateMap<User, RegistrationRequestDTO>();
-          //  CreateMap<Admin, RegistrationRequestDTO>();
-
-            //CreateMap<User, SubAdmin>()
-            //  .ForMember(x => x.SubAdminId, o => o.MapFrom(y => y.UserId));
-            //CreateMap<User, Instructor>()
-            //  .ForMember(x => x.InstructorId, o => o.MapFrom(y => y.UserId));
+          
 
 
             CreateMap<ProfileDTO, User>()
@@ -81,24 +63,7 @@ namespace courseProject.MappingProfile
             IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
 
 
-            //CreateMap<ProfileDTO, Admin>()
-
-            //   .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-            //IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
-
-            //CreateMap<ProfileDTO, User>()
-            //    .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-         //   IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
-          //  CreateMap<ProfileDTO, Instructor>()
-          //      .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-          //  IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
-          //  CreateMap<ProfileDTO, Student>()
-          //     .ForAllMembers(opts => opts.Condition((src, dest, srcMember, destMember) =>
-          //  IsNotDefaultClassForMapping.IsNotDefault(srcMember)));
-          //  CreateMap<Admin, ProfileDTO>();
-          ////  CreateMap<SubAdmin, ProfileDTO>();
-          //  CreateMap<Instructor, ProfileDTO>();
-          //  CreateMap<Student, ProfileDTO>();
+            
             CreateMap<User, ProfileDTO>()
                 .ForMember(x => x.FName, o => o.MapFrom(y => y.userName));
            

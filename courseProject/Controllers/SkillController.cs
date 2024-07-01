@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using courseProject.Core.Models;
+﻿using courseProject.Core.Models;
 using courseProject.Core.Models.DTO.InstructorsDTO;
 using courseProject.Repository.GenericRepository;
 using courseProject.Services.Skill;

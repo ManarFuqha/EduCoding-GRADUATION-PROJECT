@@ -30,8 +30,8 @@ namespace courseProject.Repository.GenericRepository
             secretKey = configuration.GetSection("Authentication")["SecretKey"]; 
         }
 
-       
 
+        // Checks if a user with the given email is unique.
         public bool isUniqeUser(string email)
         {
             var user = dbContext.users.FirstOrDefault(x=>x.email == email);
@@ -45,6 +45,8 @@ namespace courseProject.Repository.GenericRepository
             }
         }
 
+
+        // Logs in a user
         public async Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO)
         {
             var user = await dbContext.users.FirstOrDefaultAsync(x => x.email == loginRequestDTO.email);
@@ -65,6 +67,9 @@ namespace courseProject.Repository.GenericRepository
             }
            return generateToken(user);
         }
+
+
+        // Generates a JWT token for a user.
         public LoginResponseDTO generateToken(User? user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -92,11 +97,11 @@ namespace courseProject.Repository.GenericRepository
             token1 = loginResponseDTO.Token;
             return loginResponseDTO;
         }
-        
 
-       
-     
 
+
+
+        // Registers a new user
         public async Task<User> RegisterAsync( RegistrationRequestDTO registerRequestDTO)
         {
             if(registerRequestDTO.password != registerRequestDTO.ConfirmPassword)
@@ -118,6 +123,8 @@ namespace courseProject.Repository.GenericRepository
             return  user;
         }
 
+
+        // Creates an employee account
         public async Task<User> createEmployeeAccount(User user)
         {
             var passHash = BC.HashPassword(user.password);
@@ -129,6 +136,8 @@ namespace courseProject.Repository.GenericRepository
             return user;
         }
 
+
+        // Generates a secure verification code.
         public async Task<string> GenerateSecureVerificationCode(int length)
         {
             using (var randomNumberGenerator = new RNGCryptoServiceProvider())
@@ -139,32 +148,38 @@ namespace courseProject.Repository.GenericRepository
             }
         }
 
-        public async Task<User> GetUserByRoleAsync(string role)
-        {
-           return await dbContext.users.FirstOrDefaultAsync(x=>x.role.ToLower()==role.ToLower());
-        }
+   
 
+
+        // Retrieves a user by ID
         public async Task<User> getUserByIdAsync(Guid UserId)
         {
             return await dbContext.users.FirstOrDefaultAsync(x => x.UserId == UserId);
         }
 
+
+        // Retrieves all users with the "main-subadmin" role
         public async Task<IReadOnlyList< User>> getAllMainSubAmdinRole()
         {
            return await dbContext.users.Where(x => x.role.ToLower() == "main-subadmin").ToListAsync();
         }
 
+
+        // Retrieves a user by email
         public async Task<User> GetUserByEmail(string email)
         {
             return await dbContext.users.FirstOrDefaultAsync(x => x.email == email);
         }
 
+
+        // Updates user information
         public async Task UpdateUser(User user)
         {
             dbContext.Entry(user).State = EntityState.Modified;
         }
 
 
+        // Retrieves a user role from the token 
         public async Task<User> getRoleFromToken()
         {
             try
@@ -182,14 +197,14 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        // Views a user profile by ID and role.
         public async Task<User> ViewProfileAsync(Guid id, string role)
         {
          return await dbContext.users.Where(x=>x.role.ToLower()==role.ToLower()).FirstOrDefaultAsync(x => x.UserId == id);
             
         }
 
-
+        // Edits a user role asynchronously between subAdmin and main subAdmin
         public async Task editRole(User user)
         {
             dbContext.users.Update(user);

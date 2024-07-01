@@ -14,7 +14,7 @@ namespace courseProject.Repository.GenericRepository
             this.dbContext = dbContext;
         }
 
-
+        //update in student course table
         public async Task UpdateStudentCourse(StudentCourse studentCourse)
         {
             dbContext.Set<StudentCourse>().Update(studentCourse);

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using courseProject.Core.IGenericRepository;
 using courseProject.Core.Models;
-using courseProject.Repository.Data;
 using courseProject.Repository.GenericRepository;
 using Microsoft.AspNetCore.Authorization;
 using courseProject.Core.Models.DTO.CoursesDTO;

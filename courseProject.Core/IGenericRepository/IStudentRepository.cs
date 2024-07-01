@@ -11,7 +11,7 @@ namespace courseProject.Core.IGenericRepository
     public interface IStudentRepository : IGenericRepository1<User>
     {
 
-        public Task CreateStudentAccountAsync(User student);
+       
         public Task EnrollCourse(StudentCourse studentCourse);
       
        

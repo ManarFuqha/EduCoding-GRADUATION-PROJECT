@@ -15,6 +15,8 @@ namespace courseProject.Repository.GenericRepository
             this.dbContext = dbContext;
         }
 
+
+        // Retrieves course material by its ID, including related student task submissions and material files.
         public async Task<CourseMaterial> GetMaterialByIdAsync(Guid id)
         {
            
@@ -22,6 +24,7 @@ namespace courseProject.Repository.GenericRepository
                         
         }
 
+        // Retrieves all course/lecture materials based on course ID, consultation ID, and user type.
         public async Task<IReadOnlyList<CourseMaterial>> GetAllMaterial(Guid? Courseid, Guid? consultationId ,string userType)
         {
             IReadOnlyList<CourseMaterial>? materials = null;
@@ -36,6 +39,7 @@ namespace courseProject.Repository.GenericRepository
             return materials;
         }
 
+        // Retrieves all course/lecture materials for a specific course/lecture by its ID.
         public async Task<IEnumerable<CourseMaterial>> GetAllMaterialInSameCourse(Guid courseId)
         {
             
@@ -46,12 +50,15 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
+        // Adds new material files
         public async Task AddMaterialFiles(MaterialFiles materialFiles)
         {
             await dbContext.MaterialFiles.AddAsync(materialFiles);
         }
 
 
+
+        // Retrieves all material files associated with a specific material ID.
         public async Task<IReadOnlyList<MaterialFiles>> GetMaterialFilesByMaterialId(Guid materialId)
         {
             return await dbContext.MaterialFiles
@@ -60,24 +67,30 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
+
+        // Deletes material files by their entity.
         public async Task DeleteFilesById(MaterialFiles file)
         {
             dbContext.Entry(file).State = EntityState.Deleted;
             await dbContext.SaveChangesAsync();
         }
 
-
+        // Adds new material 
         public async Task AddMaterial(CourseMaterial courseMaterial)
         {
             await dbContext.Set<CourseMaterial>().AddAsync(courseMaterial);
         }
 
+
+        // Deletes material by its ID
         public async Task DeleteMaterial(Guid id)
         {
             var materail = await dbContext.courseMaterials.FirstOrDefaultAsync(x => x.Id == id);
             dbContext.courseMaterials.Remove(materail);
         }
 
+
+        // Updates existing material 
         public async Task EditMaterial(CourseMaterial courseMaterial)
         {
             dbContext.Set<CourseMaterial>().Update(courseMaterial);

@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Threading.Tasks;
-using courseProject.Core.IGenericRepository;
+﻿using courseProject.Core.IGenericRepository;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
 using MimeKit;

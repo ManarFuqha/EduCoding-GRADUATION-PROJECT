@@ -26,8 +26,10 @@ namespace courseProject.Services.Events
         public async Task<ErrorOr<Created>> CreateEvent(Event _event, Request request)
         {
             // Check if the SubAdmin exists
-            var SubAdminFound = await unitOfWork.UserRepository.ViewProfileAsync(_event.SubAdminId, "subadmin");
-            if (SubAdminFound == null) return ErrorSubAdmin.NotFound;
+            var SubAdminFound = await unitOfWork.UserRepository.ViewProfileAsync(_event.SubAdminId, "subadmin");          
+            var MainSubAdminFound = await unitOfWork.UserRepository.ViewProfileAsync(_event.SubAdminId, "main-subadmin");
+            if (SubAdminFound == null && MainSubAdminFound == null) return ErrorSubAdmin.NotFound;
+    
 
             // Upload event image if provided
             if (_event.image != null)
@@ -39,21 +41,14 @@ namespace courseProject.Services.Events
             using (var transaction = await unitOfWork.UserRepository.BeginTransactionAsync())
             {
 
-                //// Create the request
-                //await unitOfWork.RequestRepository.CreateRequest(request);
-
-                //// Save changes to the database
-                //var success1 = await unitOfWork.StudentRepository.saveAsync();
-
-                //// Set the request ID for the event
-                //_event.requestId = request.Id;
+                
 
                 // Create the event
                 await unitOfWork.eventRepository.CreateEvent(_event);
                 var success2 = await unitOfWork.StudentRepository.saveAsync();
 
                 // Commit the transaction if both operations are successful
-                if (/*success1 > 0 &&*/ success2 > 0)
+                if ( success2 > 0)
                 {
                     await transaction.CommitAsync();
                     return Result.Created;

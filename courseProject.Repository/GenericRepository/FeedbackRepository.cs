@@ -1,6 +1,7 @@
 ﻿using courseProject.Core.IGenericRepository;
 using courseProject.Core.Models;
 using courseProject.Repository.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -9,10 +10,12 @@ namespace courseProject.Repository.GenericRepository
     public class FeedbackRepository : IFeedbackRepository
     {
         private readonly projectDbContext dbContext;
+       
 
-        public FeedbackRepository(projectDbContext dbContext)
+        public FeedbackRepository(projectDbContext dbContext  )
         {
             this.dbContext = dbContext;
+         
         }
 
 
@@ -54,5 +57,6 @@ namespace courseProject.Repository.GenericRepository
             return await dbContext.feedbacks.Include(x => x.student).Include(x => x.instructor).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+       
     }
 }

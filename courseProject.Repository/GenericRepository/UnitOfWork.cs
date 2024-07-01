@@ -38,7 +38,7 @@ namespace courseProject.Repository.GenericRepository
 
         }
 
-        public ISubAdminRepository SubAdminRepository { get; set; }
+       
         public IUserRepository UserRepository { get; set ; }
         public IinstructorRepositpry instructorRepositpry { get ; set ; }
         public IStudentRepository StudentRepository { get; set ; }       

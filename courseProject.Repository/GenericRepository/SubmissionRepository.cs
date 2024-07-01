@@ -15,7 +15,7 @@ namespace courseProject.Repository.GenericRepository
             this.dbContext = dbContext;
         }
 
-
+        // Retrieves all student task submissions for a specific task ID.
         public async Task<IReadOnlyList<Student_Task_Submissions>> GetAllSubmissionsByTaskIdAsync(Guid taskId)
         {
             return await dbContext.Student_Task_Submissions
@@ -24,7 +24,7 @@ namespace courseProject.Repository.GenericRepository
                 .Where(x => x.TaskId == taskId).ToListAsync();
         }
 
-
+        // Submits a student task.
         public async Task SubmitTaskAsync(Student_Task_Submissions student_Task)
         {
             await dbContext.Set<Student_Task_Submissions>().AddAsync(student_Task);
