@@ -24,15 +24,11 @@ namespace courseProject.Core.Models
 
         [DataType(DataType.PhoneNumber)]
         public string? phoneNumber { get; set; }
-
         public string? gender { get; set; }
-
         public string? address { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime dateOfAdded {  get; set; }
-        public string? skillDescription { get; set; }
-
-       
+        public string? skillDescription { get; set; }      
         public List<Feedback> feedbacks { get; set; }
         public List<Request> requests { get; set; }
         public List<StudentCourse> studentCourses { get; set; }

@@ -40,21 +40,28 @@ namespace courseProject.Services.Lectures
 
         public async Task<ErrorOr<Created>> BookALecture(Guid studentId, DateTime date, string startTime, string endTime, BookALectureDTO bookALecture)
         {
-          
+
+            // Retrieve the student information based on the studentId
             var student = await unitOfWork.StudentRepository.getStudentByIdAsync(studentId);
             if (student == null) return ErrorStudent.NotFound;
+
+            // Validate the time format of startTime and endTime
             if (!CommonClass.IsValidTimeFormat(startTime) || !CommonClass.IsValidTimeFormat(endTime) )
-                return ErrorLectures.InvalidTime;
+                return ErrorLectures.InvalidTime;// Return an error if the time format is invalid
+
+            // Convert startTime and endTime from string to TimeSpan
             TimeSpan StartTime = CommonClass.ConvertToTimeSpan(startTime);
             TimeSpan EndTime = CommonClass.ConvertToTimeSpan(endTime);
 
-
+            // Check if the duration of the lecture is within the acceptable range (30 minutes to 2 hours)
             if ((EndTime - StartTime) > TimeSpan.Parse("02:00") || (EndTime - StartTime) < TimeSpan.Parse("00:30"))
-                return ErrorLectures.limitationTime;
+                return ErrorLectures.limitationTime; // Return an error if the duration is not within limits
+
+            // Check if the selected time slot is available
             var CheckTime = await unitOfWork.lecturesRepository.showifSelectedTimeIsAvilable(StartTime, EndTime, date);
             if (CheckTime.Count() == 0) return ErrorInstructor.NoInstructorAvailable;
 
-
+            // Map the BookALectureDTO to a Consultation entity
             var consultation = mapper.Map<BookALectureDTO, Consultation>(bookALecture);
             consultation.StudentId = studentId;
             consultation.startTime = StartTime;
@@ -62,14 +69,31 @@ namespace courseProject.Services.Lectures
             consultation.date = date;
             consultation.Duration = EndTime - StartTime;
 
+            // Book the lecture by saving the consultation details
             await unitOfWork.lecturesRepository.BookLectureAsync(consultation);
             await unitOfWork.StudentRepository.saveAsync();
+
+            // Map the Consultation entity to a StudentConsultations entity and save it
             var studentConsulation = mapper.Map<Consultation, StudentConsultations>(consultation);
             await unitOfWork.StudentRepository.AddInStudentConsulationAsync(studentConsulation);
             await unitOfWork.StudentRepository.saveAsync();
-            var instructor = await unitOfWork.UserRepository.getUserByIdAsync(bookALecture.InstructorId);        
-            await emailService.SendEmail(instructor.email, "Lecture Booking Confirmation", EmailTexts.SendBookingEmailAsync((student.userName+" " +student.LName) ,bookALecture.name ,date,StartTime , EndTime , instructor.userName+" "+instructor.LName   ));
-            return Result.Created;
+
+            // Retrieve the instructor information and send a booking confirmation email
+            var instructor = await unitOfWork.UserRepository.getUserByIdAsync(bookALecture.InstructorId);
+            // Send a booking confirmation email to the instructor with the details of the booked lecture
+            await emailService.SendEmail(
+                instructor.email, // Instructor's email address
+                "Lecture Booking Confirmation", // Email subject
+                EmailTexts.SendBookingEmailAsync(
+                    (student.userName + " " + student.LName), // Student's full name
+                    bookALecture.name, // Name of the lecture
+                    date, // Date of the lecture
+                    StartTime, // Start time of the lecture
+                    EndTime, // End time of the lecture
+                    instructor.userName + " " + instructor.LName // Instructor's full name
+                )
+            );
+            return Result.Created;// Return a success result indicating the lecture was booked
         }
 
         public async Task<ErrorOr<Created>> JoinToPublicLecture(Guid StudentId, Guid ConsultaionId)
@@ -89,16 +113,26 @@ namespace courseProject.Services.Lectures
 
         public async Task<ErrorOr<IReadOnlyList<PublicLectureForRetriveDTO>>> GetAllConsultations(Guid studentId)
         {
+
+            // Retrieve student information based on the studentId
             var getstudent = await unitOfWork.StudentRepository.getStudentByIdAsync(studentId);
             if (getstudent == null) return ErrorStudent.NotFound;
+
+            // Retrieve all public consultations
             var allPublicConsultations = await unitOfWork.lecturesRepository.GetAllPublicConsultations();
             var publicConsulations = allPublicConsultations.DistinctBy(x => x.consultationId).ToList();
+
+            // Retrieve all booked private consultations for the student
             var itsPrivateConsultations = await unitOfWork.lecturesRepository.GetAllBookedPrivateConsultationsAsync(studentId);
-           
+
+
+            // Map public consultations to PublicLectureForRetriveDTO
             IReadOnlyList<PublicLectureForRetriveDTO>? lectureForRetrive = new List<PublicLectureForRetriveDTO>();
             lectureForRetrive = mapper.Map<IReadOnlyList<StudentConsultations>, IReadOnlyList<PublicLectureForRetriveDTO>>(publicConsulations);
             List<StudentConsultations>? allStudent = null;
             List<UserNameDTO>? allPublicStudents = null;
+
+            // For each public lecture, retrieve all students attending the public consultations and map them to UserNameDTO
             foreach (var lecture in lectureForRetrive)
             {
                 if (lecture.type.ToLower() == "public")
@@ -110,7 +144,11 @@ namespace courseProject.Services.Lectures
                 }
 
             }
+
+            // Map private consultations to PublicLectureForRetriveDTO
             var privateLectures = mapper.Map<IReadOnlyList<StudentConsultations>, IReadOnlyList<PublicLectureForRetriveDTO>>(itsPrivateConsultations);
+
+            // For each private lecture, map the student attending the private consultation to UserNameDTO
             foreach (var lecture in privateLectures)
             {
                 if (lecture.type.ToLower() == "private")
@@ -124,7 +162,11 @@ namespace courseProject.Services.Lectures
                     lecture.Students.Add(studentmapper);
                 }
             }
+
+            // Combine public and private lectures into a single list
             lectureForRetrive = lectureForRetrive.Concat(privateLectures).ToList();
+
+            // Return the list of lectures as an ErrorOr<IReadOnlyList<PublicLectureForRetriveDTO>>
             return lectureForRetrive.ToErrorOr();
         }
 

@@ -2,6 +2,7 @@
 using courseProject.Core.Models;
 using courseProject.Repository.Data;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Bcpg.Sig;
 
 
 namespace courseProject.Repository.GenericRepository
@@ -40,7 +41,7 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        //Retrieves all lectures associated with a specific student by their ID.
         public async Task<IReadOnlyList<StudentConsultations>> GetAllLectureByStudentIdAsync(Guid StudentId)
         {
             return await dbContext.StudentConsultations.Include(x => x.consultation.student)
@@ -49,11 +50,13 @@ namespace courseProject.Repository.GenericRepository
                                                        .Where(x => x.StudentId == StudentId).ToListAsync();
         }
 
+        //Retrieves all public consultations
         public async Task<IReadOnlyList<Consultation>> GetAllPublicConsultationsAsync()
         {
             return await dbContext.consultations.Where(x => x.type.ToLower() == "public").ToListAsync();
         }
 
+        //Retrieves all student consultations for public consultations.
         public async Task<IReadOnlyList<StudentConsultations>> GetAllPublicConsultations()
         {
             return await dbContext.StudentConsultations
@@ -80,7 +83,7 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        //Retrieves all booked private consultations for a specific student by their ID.
         public async Task<IReadOnlyList<StudentConsultations>> GetAllBookedPrivateConsultationsAsync(Guid studentId)
         {
             return await dbContext.StudentConsultations.Where(x => x.consultation.type.ToLower() == "private")
@@ -94,7 +97,7 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        //Retrieves a specific consultation by its ID.
         public async Task<Consultation> GetConsultationById(Guid? consultationId)
         {
             return await dbContext.consultations.Include(x => x.student)

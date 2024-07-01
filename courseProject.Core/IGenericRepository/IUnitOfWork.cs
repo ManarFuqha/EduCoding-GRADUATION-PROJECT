@@ -10,7 +10,7 @@ namespace courseProject.Core.IGenericRepository
     public interface IUnitOfWork
     {
 
-        public ISubAdminRepository SubAdminRepository { get; set; }
+      
         public IUserRepository UserRepository { get; set; }
         public IinstructorRepositpry instructorRepositpry { get; set; }
         public IStudentRepository StudentRepository { get; set; }

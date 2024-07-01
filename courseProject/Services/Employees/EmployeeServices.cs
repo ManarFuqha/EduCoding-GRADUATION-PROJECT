@@ -3,8 +3,6 @@ using courseProject.Core.IGenericRepository;
 using courseProject.Core.Models;
 using courseProject.Core.Models.DTO.EmployeesDTO;
 using courseProject.ServiceErrors;
-using courseProject.Services.Instructors;
-using courseProject.Services.SubAdmins;
 using ErrorOr;
 
 namespace courseProject.Services.Employees
@@ -76,8 +74,7 @@ namespace courseProject.Services.Employees
         public async Task<ErrorOr<object>> GetEmployeeById(Guid id)
         {
             
-            // var getSubAdmin = await unitOfWork.SubAdminRepository.GetSubAdminByIdAsync(id);
-            //var getInstructor = await unitOfWork.instructorRepositpry.getInstructorByIdAsync(id);
+            
             var UserToGet = await unitOfWork.UserRepository.getUserByIdAsync(id);
 
             object employee=null;

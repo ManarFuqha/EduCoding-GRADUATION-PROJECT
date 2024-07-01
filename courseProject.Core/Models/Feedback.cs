@@ -30,6 +30,7 @@ namespace courseProject.Core.Models
             [ForeignKey("User")]
             public Guid StudentId { get; set; }
         [ForeignKey("User")]
+        [AllowNull]
         public Guid? InstructorId { get; set; }
 
             public User student { get; set; }

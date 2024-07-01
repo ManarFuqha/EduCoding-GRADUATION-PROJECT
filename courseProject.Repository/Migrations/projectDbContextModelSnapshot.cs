@@ -263,7 +263,6 @@ namespace courseProject.Repository.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("InstructorId")
-                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("StudentId")
@@ -515,9 +514,9 @@ namespace courseProject.Repository.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("d00536fe-77d8-4e82-a7ff-33b0fcd384bb"),
+                            UserId = new Guid("703616ae-7629-4ea1-859f-c679b7658024"),
                             IsVerified = true,
-                            dateOfAdded = new DateTime(2024, 6, 26, 23, 48, 17, 809, DateTimeKind.Local).AddTicks(2237),
+                            dateOfAdded = new DateTime(2024, 6, 28, 14, 8, 37, 95, DateTimeKind.Local).AddTicks(757),
                             email = "programming.academy24@gmail.com",
                             password = "$2a$11$cCCo7VY/4sxtIpeWDUFDROiDL/QPhi8AtawQhx4RGqKMAYgk8UIse",
                             role = "admin",
@@ -605,9 +604,7 @@ namespace courseProject.Repository.Migrations
 
                     b.HasOne("courseProject.Core.Models.User", "instructor")
                         .WithMany("feedbacks")
-                        .HasForeignKey("InstructorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("InstructorId");
 
                     b.HasOne("courseProject.Core.Models.User", "student")
                         .WithMany()

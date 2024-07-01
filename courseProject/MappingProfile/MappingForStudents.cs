@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using courseProject.core.Models;
-using courseProject.Core.IGenericRepository;
 using courseProject.Core.Models;
 using courseProject.Core.Models.DTO.CoursesDTO;
-using courseProject.Core.Models.DTO.FeedbacksDTO;
 using courseProject.Core.Models.DTO.LecturesDTO;
 using courseProject.Core.Models.DTO.RegisterDTO;
 using courseProject.Core.Models.DTO.StudentsDTO;
@@ -27,17 +25,9 @@ namespace courseProject.MappingProfile
                     .ForMember(x => x.ImageUrl, o => o.MapFrom(y => $"https://localhost:7116/{y.ImageUrl}"));
 
 
-        //    CreateMap<RegistrationRequestDTO, Student>();          
-        //    CreateMap<Student, RegistrationRequestDTO>();
-
-          //  CreateMap<RegistrationRequestDTO, Admin>();
             CreateMap<User, RegistrationRequestDTO>().ReverseMap();
 
-            //CreateMap<User, Student>()
-            //    .ForMember(x => x.StudentId, o => o.MapFrom(y => y.UserId));
-
-            //CreateMap<User, Admin>()
-            //    .ForMember(x => x.AdminId, o => o.MapFrom(y => y.UserId));
+       
 
 
             CreateMap<Student_Task_Submissions, StudentSubmissionDTO>()

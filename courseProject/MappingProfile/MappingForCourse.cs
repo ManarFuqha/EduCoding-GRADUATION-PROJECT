@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
 using courseProject.Common;
-using courseProject.Controllers;
 using courseProject.core.Models;
-using courseProject.Core.IGenericRepository;
 using courseProject.Core.Models;
-using courseProject.Core.Models.DTO.ContactUsDTO;
 using courseProject.Core.Models.DTO.CoursesDTO;
-using courseProject.Core.Models.DTO.LecturesDTO;
 using courseProject.Core.Models.DTO.MaterialsDTO;
-using courseProject.Core.Models.DTO.StudentsDTO;
 
 namespace courseProject.MappingProfile
 {
@@ -50,8 +45,7 @@ namespace courseProject.MappingProfile
             CreateMap<CourseForCreateDTO, Course>();
             CreateMap<CourseForCreateDTO, Request>()
                 .ForMember(x => x.name , o=>o.MapFrom(y=>y.name));
-            //CreateMap<Request, Course>()
-            //    .ForMember(x => x.requestId, o => o.MapFrom(y => y.Id));
+
                     
 
             CreateMap<CourseForEditDTO, Course>()         

@@ -15,19 +15,21 @@ namespace courseProject.Repository.GenericRepository
             this.dbContext = dbContext;
         }
 
+
+        // Adds a new skill to the database.
         public async Task addSkillOptionsAsync(Skills skill)
         {
             await dbContext.Set<Skills>().AddAsync(skill);
         }
 
 
-
+        // Retrieves all skills 
         public async Task<IReadOnlyList<Skills>> GetAllSkillsAsync()
         {
             return await dbContext.Skills.ToListAsync();
         }
 
-
+        // Adds a list of skills to an instructor by instructor ID
         public async Task AddListOfSkillsAsync(Guid instructorId, List<Guid> skills)
         {
             InstructorSkills instructorSkills = new InstructorSkills();
@@ -40,6 +42,7 @@ namespace courseProject.Repository.GenericRepository
             }
         }
 
+        // Retrieves the names of all specified skills.
         public async Task<IReadOnlyList<string>> GetAllSkillsNameToInstructorAsync(List<Guid> skills)
         {
             List<string> allSkills = new List<string>();
@@ -50,6 +53,8 @@ namespace courseProject.Repository.GenericRepository
             return (IReadOnlyList<string>)allSkills;
         }
 
+
+        // Removes a specified skill from an instructor's skill set.
         public async Task RemoveASkill(InstructorSkills instructorSkills)
         {
             dbContext.InstructorSkills.Remove(instructorSkills);
@@ -61,6 +66,8 @@ namespace courseProject.Repository.GenericRepository
             return await dbContext.Skills.Where(x => !x.instructorSkills.Any(y => y.InstructorId == instructorId)).ToListAsync();
         }
 
+
+        // Retrieves all skills selected by an instructor.
         public async Task<IReadOnlyList<Skills>> getAllInstructorSkills(Guid instructorId)
         {
             return await dbContext.Skills.Where(x => x.instructorSkills.Any(y => y.InstructorId == instructorId)).ToListAsync();

@@ -126,8 +126,16 @@ namespace courseProject.Repository.Data
                       .IsRequired(false);
             });
 
-
-        
+            modelBuilder.Entity<Feedback>(entity =>
+            {
+                entity.Property(e => e.InstructorId)
+                      .IsRequired(false);
+            });
+            modelBuilder.Entity<Feedback>(entity =>
+            {
+                entity.Property(e => e.CourseId)
+                      .IsRequired(false);
+            });
 
             modelBuilder.Entity<User>()
            .Property(c => c.DateOfBirth)

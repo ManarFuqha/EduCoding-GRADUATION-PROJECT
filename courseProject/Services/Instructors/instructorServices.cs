@@ -33,10 +33,9 @@ namespace courseProject.Services.Instructors
 
         public async Task<ErrorOr<User>> getInstructorById(Guid InstructorId)
         {
-          //  var instructorFound = await unitOfWork.UserRepository.ViewProfileAsync(InstructorId, "instructor");
-            
-            var getInstructor =  await unitOfWork.UserRepository.getUserByIdAsync(InstructorId);
-            if (getInstructor == null || getInstructor.role.ToLower()!="instructor") return ErrorInstructor.NotFound;
+                    
+            var getInstructor =  await unitOfWork.instructorRepositpry.getInstructorById(InstructorId);
+            if (getInstructor == null ) return ErrorInstructor.NotFound;
             return getInstructor;
         }
 
@@ -69,7 +68,7 @@ namespace courseProject.Services.Instructors
 
         public async Task<IReadOnlyList<EmployeeListDTO>> GetAllInstructorsList()
         {
-            var GetInstructors = await unitOfWork.instructorRepositpry.GetAllEmployeeAsync();
+            var GetInstructors = await unitOfWork.instructorRepositpry.getAllInstructors();
            
             var CustomCoursesMapper = mapper.Map<IReadOnlyList<User>, IReadOnlyList<EmployeeListDTO>>(GetInstructors);
             return CustomCoursesMapper;

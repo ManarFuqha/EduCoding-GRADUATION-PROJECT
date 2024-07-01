@@ -16,27 +16,21 @@ namespace courseProject.Repository.GenericRepository
             
         }
 
-        
 
+        // Adds a student consultation to the database.
         public async Task AddInStudentConsulationAsync(StudentConsultations consultation)
         {
             await dbContext.Set<StudentConsultations>().AddAsync(consultation);
         }
 
-        public async Task CreateStudentAccountAsync(User student)
-        {
-          await  dbContext.Set<User>().AddAsync(student);
-        }
-
-       
-
+        // Enrolls a student in a course.
         public async Task EnrollCourse(StudentCourse studentCourse)
         {
            await dbContext.Set<StudentCourse>().AddAsync(studentCourse);
         }
 
-       
 
+        // Retrieves all students enrolled in the same course.
         public async Task<IReadOnlyList<User>> GetAllStudentsInTheSameCourseAsync(Guid courseId)
         {
             return await dbContext.users
@@ -45,7 +39,7 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        // Retrieves all verified students.
         public async Task<IReadOnlyList<User>> GetAllStudentsAsync()
         {
           
@@ -57,13 +51,14 @@ namespace courseProject.Repository.GenericRepository
         }
 
 
-
+        // Retrieves a student by their ID.
         public async Task<User> getStudentByIdAsync(Guid? id )
         {          
             return await dbContext.users.Where(x=>x.role.ToLower()=="student").FirstOrDefaultAsync(x => x.UserId == id);
         }
 
-       
+
+        // Retrieves all students in a specific public consultation.
         public async Task<List<StudentConsultations>> GetAllStudentsInPublicConsulations(Guid consultationId)
         {
             return await dbContext.StudentConsultations.Where(x=>x.consultationId== consultationId)
@@ -71,15 +66,17 @@ namespace courseProject.Repository.GenericRepository
                 .Include(x=>x.Student).ToListAsync();
         }
 
-       
 
-      
 
+
+        // Retrieves a student course record by course ID and student ID.
         public async Task<StudentCourse> GetFromStudentCourse(Guid courseId, Guid studentId)
         {
            return await dbContext.studentCourses.FirstOrDefaultAsync(x=>x.courseId==courseId &&  x.StudentId==studentId);
         }
 
+
+        // Removes a rejected request to join a course.
         public async Task RemoveTheRejectedRequestToJoinCourse(StudentCourse studentCourse)
         {
              dbContext.studentCourses.Remove(studentCourse);
