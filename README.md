@@ -1,7 +1,7 @@
 # Graduation Project: API Backend
 
 ## Description
-"DEVELOPING AN ONLINE LEARNING PLATFORM"  
+_"DEVELOPING AN ONLINE LEARNING PLATFORM"_
 This project is a website for managing courses and events and enabling students to interact with a flexible, interactive learning environment that suits their time. It enables any student to book a lecture with a specific instructor at the appropriate time.
 
 ## Table of Contents
