@@ -6,7 +6,7 @@ This project is a website for managing courses and events and enabling students 
 
 ## Table of Contents
 - [Getting Started](#getting-started)
-- [Usage](#usage)
+- [Features](#features)
 - [Privileges for Each Actor](#privileges-for-each-actor)
     - [Admin](#admin)
     - [SubAdmin](#subadmin)
@@ -14,21 +14,29 @@ This project is a website for managing courses and events and enabling students 
     - [Instructor](#instructor)
     - [Student](#student)
 - [Security Measures](#security-measures)
-- [Email Notifications](#email-notifications)
+- [Author](#author)
 - [Contact Information](#contact-information)
 
 ## Getting Started
-To get a copy of the project up and running on your local machine for development and testing purposes, follow these steps:
 
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/ManarFuqha/EduCoding-GRADUATION-PROJECT.git
- 
 
+## Features
 
-## Usage
-
-Instructions on how to use the project, including example requests and responses for the API endpoints.
+- **Background Services:** Executes a daily check at midnight to update the status of courses from "accredit" to "start" based on scheduled start dates, enhancing operational efficiency and automation.
+- **Email Notifications:** Sends notifications for operations such as registration confirmation, password reset, and course enrollment. Ensure email service provider settings are correctly configured in `appsettings.json`:
+  ```json
+  {
+    "EmailSettings": {
+      "SmtpServer": "smtp.your-email-provider.com",
+      "SmtpPort": 587,
+      "SenderEmail": "your-email@your-domain.com",
+      "SenderPassword": "your-email-password"
+    }
+  }
+  ```
 
 ## Privileges for Each Actor
 
@@ -96,20 +104,8 @@ The backend API is designed with several security measures to ensure the safety 
 - **Secure Communication**
   - HTTPS: All communication between clients and the server is encrypted using HTTPS, protecting data in transit from being intercepted or tampered with.
 
-## Email Notifications
-  - Email notifications are sent for various operations such as registration confirmation, password reset, and course enrollment. Ensure the email service provider settings are correctly configured in `appsettings.json`.
-
-  ```json
-{
-  "EmailSettings": {
-    "SmtpServer": "smtp.your-email-provider.com",
-    "SmtpPort": 587,
-    "SenderEmail": "your-email@your-domain.com",
-    "SenderPassword": "your-email-password"
-  }
-}
-```
-
+## Author 
+ - [ManarFuqha](https://github.com/ManarFuqha)
 
 ## Contact Information
 
