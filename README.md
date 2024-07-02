@@ -22,22 +22,9 @@ To get a copy of the project up and running on your local machine for developmen
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/your-repo.git
-   # Setting Up and Running the Project
-2. **Configure the email service:**
+   git clone https://github.com/ManarFuqha/EduCoding-GRADUATION-PROJECT.git
+ 
 
-To set up the email service provider settings, update `appsettings.json` with the following configuration:
-
-  ```json
-{
-  "EmailSettings": {
-    "SmtpServer": "smtp.your-email-provider.com",
-    "SmtpPort": 587,
-    "SenderEmail": "your-email@your-domain.com",
-    "SenderPassword": "your-email-password"
-  }
-}
-```
 
 ## Usage
 
@@ -111,6 +98,18 @@ The backend API is designed with several security measures to ensure the safety 
 
 ## Email Notifications
   - Email notifications are sent for various operations such as registration confirmation, password reset, and course enrollment. Ensure the email service provider settings are correctly configured in `appsettings.json`.
+
+  ```json
+{
+  "EmailSettings": {
+    "SmtpServer": "smtp.your-email-provider.com",
+    "SmtpPort": 587,
+    "SenderEmail": "your-email@your-domain.com",
+    "SenderPassword": "your-email-password"
+  }
+}
+```
+
 
 ## Contact Information
 
