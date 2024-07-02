@@ -5,7 +5,9 @@
 This project is a website for managing courses and events and enabling students to interact with a flexible, interactive learning environment that suits their time. It enables any student to book a lecture with a specific instructor at the appropriate time.
 
 ## Table of Contents
-- [Getting Started](#getting-started)
+- [Technologies Used](#technologies-used)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
 - [Features](#features)
 - [Privileges for Each Actor](#privileges-for-each-actor)
     - [Admin](#admin)
@@ -17,7 +19,17 @@ This project is a website for managing courses and events and enabling students 
 - [Author](#author)
 - [Contact Information](#contact-information)
 
-## Getting Started
+## Technologies Used
+- **ASP.NET Core**: Framework for building web applications and APIs.
+- **Entity Framework Core**: ORM (Object-Relational Mapping) framework for database interaction.
+- **SQL Server**: Relational database management system used as the backend database.
+
+## Prerequisites
+- [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+- [Git](https://git-scm.com/downloads)
+
+## Installation
 
 1. **Clone the repository:**
    ```sh
