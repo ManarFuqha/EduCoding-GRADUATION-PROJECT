@@ -38,17 +38,7 @@ This project is a website for managing courses and events and enabling students 
 ## Features
 
 - **Background Services:** Executes a daily check at midnight to update the status of courses from "accredit" to "start" based on scheduled start dates, enhancing operational efficiency and automation.
-- **Email Notifications:** Sends notifications for operations such as registration confirmation, password reset, and course enrollment. Ensure email service provider settings are correctly configured in `appsettings.json`:
-  ```json
-  {
-    "EmailSettings": {
-      "SmtpServer": "smtp.your-email-provider.com",
-      "SmtpPort": 587,
-      "SenderEmail": "your-email@your-domain.com",
-      "SenderPassword": "your-email-password"
-    }
-  }
-  ```
+- **Email Notifications:** Sends notifications for operations such as registration confirmation, password reset, and course enrollment.
 
 ## Privileges for Each Actor
 
